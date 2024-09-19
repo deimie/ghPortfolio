@@ -1,8 +1,8 @@
 ---
 layout: single
-title:  "Java Notebook"
-date:   2024-09-16
-categories: archive
+title:  "First Java Program"
+date:   2024-08-22
+categories: Java
 ---
 My first java project!
 
@@ -15,5 +15,4 @@ public class HelloStatic {
     }
 }
 // A method call allows us to execute code that is wrapped in Class
-HelloStatic.main(null);   // Class prefix allows reference of Static Method
 {% endhighlight %}
