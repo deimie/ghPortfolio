@@ -11,5 +11,5 @@ categories: pages
     }
 </style>
 
-<img src="{{ site.baseurl }}assets/images/resume.png" alt="Resume.png failed to load" class="resume">
+<img src="{{ site.baseurl }}/assets/images/resume.png" alt="Resume.png failed to load" class="resume">
 

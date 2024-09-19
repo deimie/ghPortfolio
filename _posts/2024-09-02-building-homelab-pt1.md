@@ -20,7 +20,7 @@ To start off, I created 5 additional network interfaces in the Virtual Network E
 
 VMnet0 is a bridged interface, meaning that virtual machines will use the host computer’s ethernet adapter to access a network. It is presently set to automatically detect an ethernet adapter from the host machine, but it can be manually set to the proper ethernet adapter if issues arise. VMnet8 is our NAT interface to allow communication to the public internet. Both of these are defaults and should remain untouched.
 
-![networkTop.jpg]({{ site.baseurl }}assets/images/homelab/networkTop.jpg)
+![networkTop.jpg]({{ site.baseurl }}/assets/images/homelab/networkTop.jpg)
 
 | VLAN    | Function in simulated environment                                                                                                                                    |
 |---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
