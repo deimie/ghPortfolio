@@ -2,6 +2,7 @@
 layout: single
 date:   2024-09-16
 categories: pages
+permalink: /resume/
 ---
 
 <style>

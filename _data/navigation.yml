@@ -1,6 +1,6 @@
 # main links
 main:
 - title: "My Projects"
-  url: "/_pages/categories"
+  url: "/categories"
 - title: "Resume"
-  url: "/_pages/resume"
+  url: "/resume"
