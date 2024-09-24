@@ -26,18 +26,18 @@ At the top navbar go to Interfaces/Interface Assignments. Here we will configure
 ![fwInterfaces.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/fwInterfaces.jpg)
 
 **Basic Configuration**\
-Go to System/General Setup. Here, we will set a few basic configurations:
+Go to ```System > General Setup```. Here, we will set a few basic configurations:
 - Hostname: Set to whatever you’d like
 - Domain: I will keep the default “home.arpa” but this can be any domain you’d like
 - DNS Servers: I will use Google’s DNS service with 8.8.8.8 and 8.8.4.4, but feel free to use any DNS server you would like
 - Timezone: Etc/UTC
 
-Go to System/Advanced/Admin Access.
+Go to ```System > Advanced > Admin Access```.
 - Protocol: HTTPS (SSL/TLS)
 - Secure Shell Server: Enable
 
 **Firewall Rules**\
-Go to Firewall/Rules.
+Go to ```Firewall > Rules```.
 
 > WAN - Default configuration will block private networks and bogon networks (bogon = fake IP addresses). Leave these as is.
 > ![wanRules.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/wanRules.jpg)
