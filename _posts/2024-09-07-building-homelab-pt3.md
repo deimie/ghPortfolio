@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Blue Team Homelab Part 3 - DFIR"
-date:   2024-09-07
+date:   2024-09-15
 categories: Homelab
 ---
 
