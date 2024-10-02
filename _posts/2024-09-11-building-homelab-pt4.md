@@ -24,25 +24,58 @@ The installation process is quite long and can take up to a few hours to fully c
 
 ![flareVMDesktop.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/flareVMDesktop.jpg)
 
+Now that the installation is complete, the last step before this machine is ready to perform MA is to find a way to safely send malware to this machine. If this machine had internet connectivity you could just download malicous files online, but this is generally a bad idea. Instead, we will open an SSH server on the receiving machine so that the machine sending files can use the SFTP protocol to transfer malware without going over the public internet. 
+
+ We will need a way for this machine to receive files over SFTP, for which we will install OpenSSH to host an SSH server. To do this, open settings and go to ```System > Optional Features > Add a Feature``` and install OpenSSH Server. We will configure and test these tools at the end of this post.
+
+![optionalFeatures.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/optionalFeatures.jpg)
+
 ### FlareVM Network Configuration
-Now that the installation is complete, we can change the VM interface to our isolated VLAN 19 and configure a static IP address for the machine.
+Once OpenSSH is installed, we can change the VM interface to our isolated VLAN 19 and configure a static IP address for the machine.
+
 > Side note: if you run ```ipconfig``` in command prompt and see an "autoconfiguration IPv4 address" being assigned instead of the static one you set, you likely chose a static IP that was already reserved for another device.
 
 ![flareVMNetwork.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/flareVMNetwork.jpg)
 
-The last step before this machine is ready to perform MA is to find a way to safely send malware to this machine. If this machine had internet connectivity you could just download malicous files online, but this is generally a bad idea. Instead, we will open an SSH port so that our DFIR machine can send malicous files to this one using a tool called [WinSCP](https://winscp.net/eng/index.php).
 
 ### Linux MA
 Next, we will set up our Linux VM to handle malware anaylsis. For this purpose, we will use [REMnux](https://remnux.org/). The installation of REMnux is pretty simple, and should be fairly quick as well since it is a lightweight OS. 
 
-Once REMnux is installed, ensure that it is connected to the internet so that we can apply any updates using the commands ```sudo apt update``` and ```sudo apt upgrade -y```. Once both of these commands have successfully ran, switch the interface to VLAN 19. Next, we will configure a static IP and a gateway for this machine. To do this, edit the file ```/etc/netplan/01-netcfg.yaml``` so that it has a static IP and the proper gateway, as well as your chosen domain name. 
+Once REMnux is installed, ensure that it is connected to the internet so that we can apply any updates using the commands ```sudo apt update``` and ```sudo apt upgrade -y```. We will also install OpenSSH on this machine using ```sudo apt-get install ssh``` and ```sudo apt-get install openssh-server```.  
+
+Once these commands have successfully ran, switch the interface to VLAN 19. Next, we will configure a static IP and a gateway for this machine. To do this, edit the file ```/etc/netplan/01-netcfg.yaml``` so that it has a static IP and the proper gateway, as well as your chosen domain name. You may need to add new lines for most of the fields seen below.
 
 ![remnuxNetConf.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/remnuxNetConf.jpg)
 
 Lastly, input ```sudo netplan apply``` to apply the changes from that file.
 
+### SFTP Testing
+Now that both machines are on the same VLAN, we can begin using SFTP to transfer files. Start with opening the SSh server on Remnux using ```service ssh start```. The default password for this machine is "malware". You may notice when running ```service ssh status``` that the server is listening on ```0.0.0.0```, which just means that it is listening using all of the IP addresses on the local machine, which in my case is only ```10.0.19.19```.
+
+![openSSHRemnux.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/openSSHRemnux.jpg)
+
+Next, on FlareVM, connect to the SSH server using ```sftp remnux@10.0.19.19``` using the remnux hostname and IP address. Here is a little cheatsheet for some of the common commands to do a basic file transfer.
+
+>```ls```: Lists the files and directories in the current remote directory.\
+>```dir```: Lists the files and directories in the current local directory.\
+>```cd [directory_name]```: Changes the current remote directory to directory_name.\
+>```lcd [directory_name]```: Changes the current local directory.\
+>```pwd```: List the current directory on the remote machine.\
+>```lpwd```: List the current directory on the local machine.\
+>```get [filename]```: Downloads file from the remote server to the local machine.\
+>```put [filename]```: Uploads file from the local machine to the remote server.\
+>```exit``` or ```quit```: Closes the connection to the remote server and exits SFTP.\
+
+![sftpTest.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/sftpTest.jpg)
+
+In this example, I connected to the SSH server and listed the local and remote present working directories. Then I moved a file called tester.txt from FlareVM to Remnux, then downloaded a file called newFile.txt from Remnux to FlareVM.
+
+Now both of our MA machines are completely set up and ready to transfer files between each other on their own isolated VLAN.
+
+
 ### Downloads Used for This Part
-* [Download FlareVM](https://github.com/mandiant/flare-vm)
 * [Download Windows](https://www.microsoft.com/en-us/software-download/windows10)
 * [Remove Windows Defender](https://github.com/ionuttbara/windows-defender-remover)
+* [Download FlareVM](https://github.com/mandiant/flare-vm)
 * [Download REMnux](https://remnux.org/)
+* [Download WinSCP](https://winscp.net)
