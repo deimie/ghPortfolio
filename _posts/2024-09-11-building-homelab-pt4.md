@@ -50,7 +50,7 @@ Once these commands have successfully ran, switch the interface to VLAN 19. Next
 Lastly, input ```sudo netplan apply``` to apply the changes from that file.
 
 ### SFTP Testing
-Now that both machines are on the same VLAN, we can begin using SFTP to transfer files. Start with opening the SSh server on Remnux using ```service ssh start```. The default password for this machine is "malware". You may notice when running ```service ssh status``` that the server is listening on ```0.0.0.0```, which just means that it is listening using all of the IP addresses on the local machine, which in my case is only ```10.0.19.19```.
+Now that both machines are on the same VLAN, we can begin using SFTP to transfer files. Start with opening the SSH server on Remnux using ```service ssh start```. The default password for this machine is "malware". You may notice when running ```service ssh status``` that the server is listening on ```0.0.0.0```, which just means that it is listening using all of the IP addresses on the local machine, which in my case is only ```10.0.19.19```.
 
 ![openSSHRemnux.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/openSSHRemnux.jpg)
 
@@ -78,4 +78,3 @@ Now both of our MA machines are completely set up and ready to transfer files be
 * [Remove Windows Defender](https://github.com/ionuttbara/windows-defender-remover)
 * [Download FlareVM](https://github.com/mandiant/flare-vm)
 * [Download REMnux](https://remnux.org/)
-* [Download WinSCP](https://winscp.net)

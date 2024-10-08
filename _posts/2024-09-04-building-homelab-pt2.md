@@ -7,7 +7,7 @@ categories: Homelab
 
 In part 2 of building the homelab, I will going through the installation and configuration of a pfSense firewall, as well as adding one more VM to the mix.
 
-### Creating pfSense VM
+## Creating pfSense VM
 For the firewall, I am using a free open-source software called [pfSense](https://www.pfsense.org/). It can be downloaded as a disc image (ISO) to be run in vmware. For installation, all default settings will suffice.
 
 In order to configure the pfSense firewall, I had to edit the LAN interface’s IP address to match the subnet address that I had specified in the vmware Virtual Network Editor. To do this, select option 2. Next, choose no for DHCP assigning the address for us, as we will set the IP address ourselves. I will use 10.0.1.1, which will be the gateway to access the pfSense configuration GUI from another machine that is connected to the LAN. For this project, IPv6 will not be utilized, so select no for all options asking about it. Lastly, you will be prompted if you want to set up a DHCP server to assign addresses to machines that connect to this interface. I allowed the DHCP server to assign addresses between 10.0.1.30 to 10.0.1.100.
@@ -20,12 +20,12 @@ Next, I set up a Ubuntu virtual machine to test the firewall and manage the fire
 
 ![pfSensePortal.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/pfSensePortal.jpg)
 
-### Interface Configuration
+## Interface Configuration
 At the top navbar go to Interfaces/Interface Assignments. Here we will configure all of the interfaces within the firewall by assigning each interface a descriptive name and their corresponding static IPv4 gateway addresses, referencing the network topology table we made earlier.
 
 ![fwInterfaces.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/fwInterfaces.jpg)
 
-**Basic Configuration**\
+### Basic Configuration
 Go to ```System > General Setup```. Here, we will set a few basic configurations:
 - Hostname: Set to whatever you’d like
 - Domain: I will keep the default “home.arpa” but this can be any domain you’d like
@@ -36,7 +36,7 @@ Go to ```System > Advanced > Admin Access```.
 - Protocol: HTTPS (SSL/TLS)
 - Secure Shell Server: Enable
 
-**Firewall Rules**\
+### Firewall Rules
 Go to ```Firewall > Rules```.
 
 > WAN - Default configuration will block private networks and bogon networks (bogon = fake IP addresses). Leave these as is.

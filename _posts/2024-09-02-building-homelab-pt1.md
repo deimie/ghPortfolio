@@ -7,15 +7,11 @@ categories: Homelab
 
 Part 1 of many in setting up my own blueteam homelab for learning purposes. Part 1 will be setting up some of the core infrastructure and documenting the network topology.
 
----
-
-### About this homelab
+## About this homelab
 For this project, I will be building a homelab which will be used to simulate a corporate network environment where I can experiment using different tools and networking devices. I am pursuing this project in an ongoing effort to learn more about networking and cybersecurity so that I can develop hands-on skills and familarize myself with industry tools. This homelab is largely based off of [this](https://facyber.me/posts/blue-team-lab-guide-part-1/) project by facyber, which has been a huge help in developing my knowledge in this field.
 
----
-
-### Network Topology
-**Virtual Network Editor in vmware**\
+## Network Topology
+### Virtual Network Editor in vmware
 To start off, I created 5 additional network interfaces in the Virtual Network Editor. These interfaces should be host-only with DHCP disabled. VMnet1 is the exception, which will be host-only with DHCP enabled. I also set each subnet address to match their corresponding VLAN numbers for simplicity, but this is not required. 
 
 VMnet0 is a bridged interface, meaning that virtual machines will use the host computer’s ethernet adapter to access a network. It is presently set to automatically detect an ethernet adapter from the host machine, but it can be manually set to the proper ethernet adapter if issues arise. VMnet8 is our NAT interface to allow communication to the public internet. Both of these are defaults and should remain untouched.
@@ -31,7 +27,7 @@ VMnet0 is a bridged interface, meaning that virtual machines will use the host c
 | VLAN 19 | Isolated LAN network with VMs for malware analysis.                                                                                                                  |
 
 
-**Subnets and Gateways**\
+### Subnets and Gateways
 Documenting which subnets and gateways correspond to which VLAN will be an extremely useful reference throughout this project.
 
 | Name          | Domain     | VLAN     | Subnet       | Gateway     |
