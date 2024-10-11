@@ -28,7 +28,7 @@ At the top navbar go to Interfaces/Interface Assignments. Here we will configure
 ### Basic Configuration
 Go to ```System > General Setup```. Here, we will set a few basic configurations:
 - Hostname: Set to whatever you’d like
-- Domain: I will keep the default “home.arpa” but this can be any domain you’d like
+- Domain: I will use "homelab.lan" but you can use almost any domain name. Don't use the default "home.arpa" due to a really niche issue much later where a windows server has issues with that domain.
 - DNS Servers: I will use Google’s DNS service with 8.8.8.8 and 8.8.4.4, but feel free to use any DNS server you would like
 - Timezone: Etc/UTC
 

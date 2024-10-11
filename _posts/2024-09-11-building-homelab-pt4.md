@@ -9,7 +9,7 @@ For part 4 of building this homelab environment, we will focus on setting up our
 
 When it comes to building our isolated network for malware anaylsis, it is extremely important that we can analyze malicious files without any risk of the malware spreading to other virtual machines or your host machine outside of the contained VLAN. Oftentimes, malware will also try and establish a connection with other IPs over the internet, which is why it is so important that the malware is only allowed to run in an environment that is completed isolated from public internet connectivity.
 
-### Windows MA
+## Windows MA
 To handle malware anaylsis, we will be using Windows 10 with an MA distribution called [FlareVM](https://github.com/mandiant/flare-vm) installed on top of it. You can use Microsoft's [media creation tool](https://www.microsoft.com/en-us/software-download/windows10) to create a disk image of Windows, even if you don't have a valid license. Without a license, some personalization settings will be disabled, but this is not important for our use-case. 
 
 During the creation, ensure that the windows machine has at least 80GB of storage. Once you have downloaded FlareVM from github, it is highly advised that you create a snapshot of Windows because any errors during the long installation process of FlareVM will likely leave you with a broken version of Windows, in which case simply reverting back the snapshot will save you lots of time.
@@ -24,32 +24,27 @@ The installation process is quite long and can take up to a few hours to fully c
 
 ![flareVMDesktop.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/flareVMDesktop.jpg)
 
-Now that the installation is complete, the last step before this machine is ready to perform MA is to find a way to safely send malware to this machine. If this machine had internet connectivity you could just download malicous files online, but this is generally a bad idea. Instead, we will open an SSH server on the receiving machine so that the machine sending files can use the SFTP protocol to transfer malware without going over the public internet. 
-
- We will need a way for this machine to receive files over SFTP, for which we will install OpenSSH to host an SSH server. To do this, open settings and go to ```System > Optional Features > Add a Feature``` and install OpenSSH Server. We will configure and test these tools at the end of this post.
-
-![optionalFeatures.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/optionalFeatures.jpg)
-
 ### FlareVM Network Configuration
-Once OpenSSH is installed, we can change the VM interface to our isolated VLAN 19 and configure a static IP address for the machine.
+Now that the install is complete, we will change the VM interface to our isolated VLAN 19 and configure a static IP address for the machine.
 
 > Side note: if you run ```ipconfig``` in command prompt and see an "autoconfiguration IPv4 address" being assigned instead of the static one you set, you likely chose a static IP that was already reserved for another device.
 
 ![flareVMNetwork.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/flareVMNetwork.jpg)
 
 
-### Linux MA
+## Linux MA
 Next, we will set up our Linux VM to handle malware anaylsis. For this purpose, we will use [REMnux](https://remnux.org/). The installation of REMnux is pretty simple, and should be fairly quick as well since it is a lightweight OS. 
 
 Once REMnux is installed, ensure that it is connected to the internet so that we can apply any updates using the commands ```sudo apt update``` and ```sudo apt upgrade -y```. We will also install OpenSSH on this machine using ```sudo apt-get install ssh``` and ```sudo apt-get install openssh-server```.  
 
-Once these commands have successfully ran, switch the interface to VLAN 19. Next, we will configure a static IP and a gateway for this machine. To do this, edit the file ```/etc/netplan/01-netcfg.yaml``` so that it has a static IP and the proper gateway, as well as your chosen domain name. You may need to add new lines for most of the fields seen below.
+### Remnux Network Configuration
+Once all the commands have successfully ran, switch the interface to VLAN 19. Next, we will configure a static IP and a gateway for this machine. To do this, edit the file ```/etc/netplan/01-netcfg.yaml``` so that it has a static IP and the proper gateway, as well as your chosen domain name. You may need to add new lines for most of the fields seen below.
 
 ![remnuxNetConf.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/remnuxNetConf.jpg)
 
 Lastly, input ```sudo netplan apply``` to apply the changes from that file.
 
-### SFTP Testing
+## SFTP Testing
 Now that both machines are on the same VLAN, we can begin using SFTP to transfer files. Start with opening the SSH server on Remnux using ```service ssh start```. The default password for this machine is "malware". You may notice when running ```service ssh status``` that the server is listening on ```0.0.0.0```, which just means that it is listening using all of the IP addresses on the local machine, which in my case is only ```10.0.19.19```.
 
 ![openSSHRemnux.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/openSSHRemnux.jpg)
@@ -73,7 +68,7 @@ In this example, I connected to the SSH server and listed the local and remote p
 Now both of our MA machines are completely set up and ready to transfer files between each other on their own isolated VLAN.
 
 
-### Downloads Used for This Part
+## Downloads Used for This Part
 * [Download Windows](https://www.microsoft.com/en-us/software-download/windows10)
 * [Remove Windows Defender](https://github.com/ionuttbara/windows-defender-remover)
 * [Download FlareVM](https://github.com/mandiant/flare-vm)
