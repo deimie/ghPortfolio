@@ -1,11 +1,11 @@
 ---
 layout: single
-title:  "Blue Team Homelab Part 5 - Corporate LAN"
+title:  "Blue Team Homelab Part 5 - Corporate LAN Server"
 date:   2024-10-02
 categories: Homelab
 ---
 
-Lorem ipsum description
+For part 5 of making a homelab, we will be setting up a Windows Server on our corporate LAN network.
 
 ## Installing Windows Server
 To start, we will be installing a server that will handle active directory, DNS, and file share. For this purpose, we will use Windows Server 2022. Ordinarily there would be a cost to gain access to a Windows Server license, but Microsoft offers an evalutation trial [here](https://www.microsoft.com/evalcenter/evaluate-windows-server-2022) for 180 days of free use.
@@ -111,7 +111,7 @@ Now let's create our groups for our users. Go to ```Tools > Active Directory Use
 
 ![groups.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/groups.jpg)
 
-Next let's create our users. On the same page under the domain, right click on *Users* and create a new user with whatever name you want. I will make some users with strong passwords, and some with bad common passwords from this [list](https://www.kaggle.com/datasets/wjburns/common-password-list-rockyoutxt). Set passwords to never expire and make sure you make at least 5 users.
+Next let's create our users. On the same page under the domain, right click on *Users* and create a new user with whatever name you want. I will make some users with strong passwords, and some with bad common passwords from this [list](https://www.kaggle.com/datasets/wjburns/common-password-list-rockyoutxt). Set passwords to never expire and make sure you make at least 5 users. Also consider saving those passwords somewhere so you don't have to reset them when you test the user accounts.
 
 ![newUser.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/newUser.jpg)
 
