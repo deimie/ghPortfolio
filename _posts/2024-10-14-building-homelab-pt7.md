@@ -40,4 +40,62 @@ Now it's time to start the webserver. To do this, we will start the Apache servi
 To view the web application, open a browser and enter ```http://10.0.11.10/DVWA/```. The default username is *admin* and the password is *password*.
 
 ### Database Configuration
-At the bottom of the page, choose *Create / Setup Database*, then login with the default credentials.
+At the bottom of the page, choose *Create / Reset Database*, then login with the default credentials.
+
+Now we will make this database even less secure! Navigate to ```/etc/mysql/mariadb.conf.d``` and edit ```50-server.cnf```. Change the bind address from *127.0.0.1* to *0.0.0.0*, which will allow remote connections to the database.
+
+``` bash
+# bind-address = 127.0.0.1
+bind-address = 0.0.0.0
+```
+
+Restart MariaDB (the database service) using ```sudo systemctl restart mariadb``` and check that your changes worked using ```ss -tnlp```.
+
+![mariadbBindAddress.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/mariadbBindAddress.jpg)
+
+I will also change the overall security level of the web application by changing the setting in under *DVWA Security*. The default is *impossible* but I will choose *low*.
+
+![dvwaSecLevel.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/dvwaSecLevel.jpg)
+
+### Apache Configuration
+Ok, so now we will set up DNS for the web application. First, we will copy the apache default config file and edit it.
+
+``` bash
+cd /etc/apache2/sites-available
+sudo cp 000-default.conf system.homelab.lan.conf
+sudo nano system.homelab.lan.conf
+```
+We will edit this config file to have the domain we want, the admin account we want, and set the root folder correctly.
+
+![apacheConf.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/apacheConf.jpg)
+
+Next we will tell the server to use the new configuration, disable the old configuration, and then restart apache to apply the changes.
+
+``` bash
+sudo a2ensite system.homelab.lan.conf
+sudo a2dissite 000-default.conf
+systemctl restart apache2
+```
+
+Now edit ```/etc/hosts``` and add your domain to the first line so it looks like the following.
+
+``` bash
+127.0.0.1 localhost system.homelab.lan
+```
+
+Lastly, I will edit my host machine's hosts file. My host machine is running Windows, so the location of the host file is ```C:\Windows\System32\drivers\etc\hosts```. I will add an entry for the web application and for the Windows Server firewall.
+
+``` bash
+10.0.11.10 system.homelab.lan
+10.0.11.5 firewall.homelab.lan
+```
+
+Now the host machine can open the web application and the firewall using domain names instead of IP addresses.
+
+## Windows Server VM
+### Active Directory Configuration
+Now we will add a DNS record on our Corporate LAN windows server so that the VM workstations can access the web application using the domain name as well. Add a new A record in the server manager application under ```Tools > DNS```.
+
+![winServDVWA.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/winServDVWA.jpg)
+
+Now the damn vulnerable web application is accessible using a domain name on both the host machine and on the VM workstations in the Corporate LAN.
