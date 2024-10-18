@@ -32,7 +32,7 @@ Next, to change the hostname, go to ```Control Panel > System and Security > Sys
 ### Testing the Domain User
 Now you should see the domain on the login page. Select *Switch User* and log in with one of your HR user's credentials. Now let's test the shared folder by going into the network section in file explorer. You may be prompted to enable file sharing discovery at the top when you first open this page, which you will need to log in with the Administrator account to enable. If all is done correctly, udner the WIN-DC01 computer, you should see the shared folder with only the HR folder inside of it.
 
-![win7sharedFolder.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/win7sharedFolder.jpg)
+![win7SharedFolder.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/win7SharedFolder.jpg)
 
 ## Windows 10 VM
 Now there will also be a Windows 10 VM workstation connected to our server. The great thing is that the steps to configure this VM are practically identical to what we just did on Windows 7, so I will just briefly mention a few things. 
