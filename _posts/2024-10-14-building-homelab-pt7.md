@@ -13,7 +13,7 @@ To host our webserver, we will use [Ubuntu Server 22.04 LTS](https://ubuntu.com/
 
 I will load mine with 2GB of RAM, 2 processor cores, and 40GB of storage. The installation is fairly straightforward, just ensure it has internet connectivity during installation. It should look like this when completed:
 
-![ubuntuServer.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/ubuntuServer.jpg)
+![ubuntuServer.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/buildPart7/ubuntuServer.jpg)
 
 Next, we will update the server and install the web application as well as some neccesary tools and some generally useful tools. ```apache2``` is the framework for the HTTP server we will host. Once Apache is installed, a new directory ```var/www/html``` should be created, which is where we will install the DVWA. There are a few ways to install the DVWA, but I will personally use the automated script provided in the README of the github project. 
 
@@ -28,14 +28,14 @@ sudo ./Install-DVWA.sh
 ### Network
 Once these installations are complete, change the interface to VLAN 11. Now we will configure a static IP address by creating and editing this file: ```/etc/netplan/01-netcfg.yaml```. Configure as shown below, but your network adapter may or may not be *ens33*, so first check using ```ip a```. Finally, type ```sudo netplan apply``` to apply these changes.
 
-![ubuntuServNetplan.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/ubuntuServNetplan.jpg)
+![ubuntuServNetplan.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/buildPart7/ubuntuServNetplan.jpg)
 
 Lastly, it's always a good idea to create a snapshot before continuing, just in case anything breaks.
 
 ### Starting the Webserver
 Now it's time to start the webserver. To do this, we will start the Apache service using the command ```systemctl start apache2```.
 
-![startApache.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/startApache.jpg)
+![startApache.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/buildPart7/startApache.jpg)
 
 To view the web application, open a browser and enter ```http://10.0.11.10/DVWA/```. The default username is *admin* and the password is *password*.
 
@@ -51,11 +51,11 @@ bind-address = 0.0.0.0
 
 Restart MariaDB (the database service) using ```sudo systemctl restart mariadb``` and check that your changes worked using ```ss -tnlp```.
 
-![mariadbBindAddress.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/mariadbBindAddress.jpg)
+![mariadbBindAddress.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/buildPart7/mariadbBindAddress.jpg)
 
 I will also change the overall security level of the web application by changing the setting in under *DVWA Security*. The default is *impossible* but I will choose *low*.
 
-![dvwaSecLevel.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/dvwaSecLevel.jpg)
+![dvwaSecLevel.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/buildPart7/dvwaSecLevel.jpg)
 
 ### Apache Configuration
 Ok, so now we will set up DNS for the web application. First, we will copy the apache default config file and edit it.
@@ -67,7 +67,7 @@ sudo nano system.homelab.lan.conf
 ```
 We will edit this config file to have the domain we want, the admin account we want, and set the root folder correctly.
 
-![apacheConf.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/apacheConf.jpg)
+![apacheConf.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/buildPart7/apacheConf.jpg)
 
 Next we will tell the server to use the new configuration, disable the old configuration, and then restart apache to apply the changes.
 
@@ -96,6 +96,6 @@ Now the host machine can open the web application and the firewall using domain 
 ### Active Directory Configuration
 Now we will add a DNS record on our Corporate LAN windows server so that the VM workstations can access the web application using the domain name as well. Add a new A record in the server manager application under ```Tools > DNS```.
 
-![winServDVWA.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/winServDVWA.jpg)
+![winServDVWA.jpg failed to load.]({{ site.baseurl}}/assets/images/homelab/buildPart7/winServDVWA.jpg)
 
 Now the damn vulnerable web application is accessible using a domain name on both the host machine and on the VM workstations in the Corporate LAN.

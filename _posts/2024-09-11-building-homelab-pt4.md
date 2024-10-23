@@ -18,18 +18,18 @@ Next, you will need to disable windows defender, otherwise it will prevent the F
 
 With windows defender out of the way, we can begin the installation process. With powershell open as an administrator, we will execute: ```Set-ExecutionPolicy unrestricted``` to escalate the permissions for running scripts. When prompted, respond with Y. Next, cd to your flareVM folder and run\ ```.\install.ps1``` to begin the installation. 
 
-![powerShellFlareVM.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/powerShellFlareVM.jpg)
+![powerShellFlareVM.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/buildPart4/powerShellFlareVM.jpg)
 
 The installation process is quite long and can take up to a few hours to fully complete. Once it is completed, you will be presented with a desktop environment that should resemble the following:
 
-![flareVMDesktop.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/flareVMDesktop.jpg)
+![flareVMDesktop.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/buildPart4/flareVMDesktop.jpg)
 
 ### FlareVM Network Configuration
 Now that the install is complete, we will change the VM interface to our isolated VLAN 19 and configure a static IP address for the machine.
 
 > Side note: if you run ```ipconfig``` in command prompt and see an "autoconfiguration IPv4 address" being assigned instead of the static one you set, you likely chose a static IP that was already reserved for another device.
 
-![flareVMNetwork.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/flareVMNetwork.jpg)
+![flareVMNetwork.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/buildPart4/flareVMNetwork.jpg)
 
 
 ## Linux MA
@@ -40,14 +40,14 @@ Once REMnux is installed, ensure that it is connected to the internet so that we
 ### Remnux Network Configuration
 Once all the commands have successfully ran, switch the interface to VLAN 19. Next, we will configure a static IP and a gateway for this machine. To do this, edit the file ```/etc/netplan/01-netcfg.yaml``` so that it has a static IP and the proper gateway, as well as your chosen domain name. You may need to add new lines for most of the fields seen below.
 
-![remnuxNetConf.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/remnuxNetConf.jpg)
+![remnuxNetConf.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/buildPart4/remnuxNetConf.jpg)
 
 Lastly, input ```sudo netplan apply``` to apply the changes from that file.
 
 ## SFTP Testing
 Now that both machines are on the same VLAN, we can begin using SFTP to transfer files. Start with opening the SSH server on Remnux using ```service ssh start```. The default password for this machine is "malware". You may notice when running ```service ssh status``` that the server is listening on ```0.0.0.0```, which just means that it is listening using all of the IP addresses on the local machine, which in my case is only ```10.0.19.19```.
 
-![openSSHRemnux.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/openSSHRemnux.jpg)
+![openSSHRemnux.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/buildPart4/openSSHRemnux.jpg)
 
 Next, on FlareVM, connect to the SSH server using ```sftp remnux@10.0.19.19``` using the remnux hostname and IP address. Here is a little cheatsheet for some of the common commands to do a basic file transfer.
 
@@ -61,7 +61,7 @@ Next, on FlareVM, connect to the SSH server using ```sftp remnux@10.0.19.19``` u
 >```put [filename]```: Uploads file from the local machine to the remote server.\
 >```exit``` or ```quit```: Closes the connection to the remote server and exits SFTP.\
 
-![sftpTest.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/sftpTest.jpg)
+![sftpTest.jpg failed to load]({{ site.baseurl }}/assets/images/homelab/buildPart4/sftpTest.jpg)
 
 In this example, I connected to the SSH server and listed the local and remote present working directories. Then I moved a file called tester.txt from FlareVM to Remnux, then downloaded a file called newFile.txt from Remnux to FlareVM.
 

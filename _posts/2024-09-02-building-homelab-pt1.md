@@ -16,7 +16,7 @@ To start off, I created 5 additional network interfaces in the Virtual Network E
 
 VMnet0 is a bridged interface, meaning that virtual machines will use the host computer’s ethernet adapter to access a network. It is presently set to automatically detect an ethernet adapter from the host machine, but it can be manually set to the proper ethernet adapter if issues arise. VMnet8 is our NAT interface to allow communication to the public internet. Both of these are defaults and should remain untouched.
 
-![networkTop.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/networkTop.jpg)
+![networkTop.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/buildPart1/networkTop.jpg)
 
 | VLAN    | Function in simulated environment                                                                                                                                    |
 |---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -41,4 +41,4 @@ Documenting which subnets and gateways correspond to which VLAN will be an extre
 ### Network Diagram
 To better visualize how these VLANs will communicate and what their functions will be, I have created a diagram using [Lucid Chart](https://www.lucidchart.com). Lucid chart is fairly intuitive to start using, and this chart only took me around 30 minutes to create having no prior experience using lucid chart.
 
-![networkChart.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/networkChart.jpg)
+![networkChart.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/buildPart1/networkChart.jpg)
