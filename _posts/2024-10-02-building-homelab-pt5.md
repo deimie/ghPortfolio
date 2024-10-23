@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Blue Team Homelab Part 5 - Corporate LAN Server"
+title:  "Building Blue Team Homelab Part 5 - Corporate LAN Server"
 date:   2024-10-02
 categories: Homelab
 ---

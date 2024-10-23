@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Blue Team Homelab Part 6 - Corporate LAN Workstations"
+title:  "Building Blue Team Homelab Part 6 - Corporate LAN Workstations"
 date:   2024-10-12
 categories: Homelab
 ---

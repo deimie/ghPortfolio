@@ -1,11 +1,11 @@
 ---
 layout: single
-title:  "Blue Team Homelab Part 1 - Network Topology"
+title:  "Building Blue Team Homelab Part 1 - Network Topology"
 date:   2024-09-02
 categories: Homelab
 ---
 
-Part 1 of many in setting up my own blueteam homelab for learning purposes. Part 1 will be setting up some of the core infrastructure and documenting the network topology.
+Part 1 of many in setting up my own blue team homelab for learning purposes. Part 1 will be setting up some of the core infrastructure and documenting the network topology.
 
 ## About this homelab
 For this project, I will be building a homelab which will be used to simulate a corporate network environment where I can experiment using different tools and networking devices. I am pursuing this project in an ongoing effort to learn more about networking and cybersecurity so that I can develop hands-on skills and familarize myself with industry tools. This homelab is largely based off of [this](https://facyber.me/posts/blue-team-lab-guide-part-1/) project by facyber, which has been a huge help in developing my knowledge in this field.

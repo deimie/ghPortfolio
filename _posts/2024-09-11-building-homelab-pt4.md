@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Blue Team Homelab Part 4 - Malware Analysis"
+title:  "Building Blue Team Homelab Part 4 - Malware Analysis"
 date:   2024-09-24
 categories: Homelab
 ---

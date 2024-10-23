@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Blue Team Homelab Part 8 - External Threats"
+title:  "Building Blue Team Homelab Part 8 - External Threats"
 date:   2024-10-16
 categories: Homelab
 ---
@@ -41,8 +41,6 @@ Next, lets test out SSH. First off, lets make sure our Ubuntu Server is actually
 
 ![netstatSSH.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/netstatSSH.jpg)
 
-Finally, I will connect kali using the following command ```ssh username@10.0.10.254 -p 4487```.
+Finally, I will connect over SSH using the following command ```ssh username@10.0.10.254 -p 4487```.
 
 ![kaliSSH.jpg failed to load.]({{ site.baseurl }}/assets/images/homelab/kaliSSH.jpg)
-
-Lastly, we will test the connection to MariaDB. 

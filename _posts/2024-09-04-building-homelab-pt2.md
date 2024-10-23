@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Blue Team Homelab Part 2 - Configuring the Firewall"
+title:  "Building Blue Team Homelab Part 2 - Configuring the Firewall"
 date:   2024-09-10
 categories: Homelab
 ---
