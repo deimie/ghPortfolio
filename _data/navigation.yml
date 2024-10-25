@@ -2,5 +2,5 @@
 main:
 - title: "My Projects"
   url: "/categories"
-- title: "Resume"
-  url: "/resume"
+#- title: "Resume"
+#  url: "/resume"
