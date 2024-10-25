@@ -5,7 +5,7 @@ date:   2024-10-20
 categories: Homelab
 ---
 
-For this part of building the homelab, we will be installing a SIEM on our security VLAN.
+We will go through the process of installing a SIEM and configuring it to listen to network traffic.
 
 ## Security Onion
 ### Installation
